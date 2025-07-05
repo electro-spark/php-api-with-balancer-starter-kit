@@ -1,0 +1,12 @@
+---
+- name: Update hosts.
+  hosts: apis:balancers
+  remote_user: root
+
+  tasks:
+    - name: Install updates
+      ansible.builtin.shell:
+        cmd: apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y && snap refresh
+    - name: Reboot hosts
+      ansible.builtin.shell:
+        cmd: reboot

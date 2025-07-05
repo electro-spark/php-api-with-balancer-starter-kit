@@ -1,0 +1,38 @@
+---
+- name: Stop APIs
+  hosts: apis
+  remote_user: root
+
+  tasks:
+    - name: Ensure api directory exists
+      ansible.builtin.file:
+        path: /api
+        state: directory
+        mode: '0755'
+    - name: Copy stop script
+      ansible.builtin.copy:
+        src: ../api/stop.sh
+        dest: /api/
+        mode: '0700'
+    - name: Run stop script
+      ansible.builtin.shell:
+        cmd: /api/stop.sh
+
+- name: Stop Balancers
+  hosts: balancers
+  remote_user: root
+
+  tasks:
+    - name: Ensure balancer directory exists
+      ansible.builtin.file:
+        path: /balancer
+        state: directory
+        mode: '0755'
+    - name: Copy stop script
+      ansible.builtin.copy:
+        src: ../balancer/stop.sh
+        dest: /balancer/
+        mode: '0700'
+    - name: Run stop script
+      ansible.builtin.shell:
+        cmd: /balancer/stop.sh

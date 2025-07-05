@@ -1,0 +1,6 @@
+apis:
+  hosts:
+    # TODO: add API hosts, one per line
+balancers:
+  hosts:
+    # TODO: add balancer hosts, one per line

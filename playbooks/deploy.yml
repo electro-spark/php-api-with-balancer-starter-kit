@@ -1,0 +1,82 @@
+---
+- name: Deploy APIs
+  hosts: apis
+  remote_user: root
+
+  tasks:
+    - name: Ensure api directory exists
+      ansible.builtin.file:
+        path: /api
+        state: directory
+        mode: '0755'
+    - name: Copy Dockerfile
+      ansible.builtin.copy:
+        src: ../api/Dockerfile
+        dest: /api/
+        mode: '0600'
+    - name: Copy server config file
+      ansible.builtin.copy:
+        src: ../api/000-default.conf
+        dest: /api/
+        mode: '0600'
+    - name: Copy src directory
+      ansible.builtin.copy:
+        src: ../api/src
+        dest: /api/
+    - name: Copy scripts
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /api/
+        mode: '0700'
+      with_fileglob:
+        - "../api/*.sh"
+    - name: Copy ssl directory
+      ansible.builtin.copy:
+        src: ../api/ssl
+        dest: /api/
+    - name: Run stop script
+      ansible.builtin.shell:
+        cmd: /api/stop.sh
+    - name: Run start script
+      ansible.builtin.shell:
+        cmd: /api/start.sh 3
+        chdir: /api/
+
+- name: Deploy Balancers
+  hosts: balancers
+  remote_user: root
+
+  tasks:
+    - name: Ensure balancer directory exists
+      ansible.builtin.file:
+        path: /balancer
+        state: directory
+        mode: '0755'
+    - name: Copy Dockerfile
+      ansible.builtin.copy:
+        src: ../balancer/Dockerfile
+        dest: /balancer/
+        mode: '0600'
+    - name: Copy server config file
+      ansible.builtin.copy:
+        src: ../balancer/default.conf
+        dest: /balancer/
+        mode: '0600'
+    - name: Copy scripts
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: /balancer/
+        mode: '0700'
+      with_fileglob:
+        - "../balancer/*.sh"
+    - name: Copy ssl directory
+      ansible.builtin.copy:
+        src: ../balancer/ssl
+        dest: /balancer/
+    - name: Run stop script
+      ansible.builtin.shell:
+        cmd: /balancer/stop.sh
+    - name: Run start script
+      ansible.builtin.shell:
+        cmd: /balancer/start.sh
+        chdir: /balancer/
