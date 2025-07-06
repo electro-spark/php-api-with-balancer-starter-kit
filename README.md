@@ -60,5 +60,9 @@ cd /your/clone/location/php-api-with-balancer-starter-kit
 ./stop.sh
 ```
 
+__To change the number of API docker containers per host:__
+
+Edit [here](https://github.com/electro-spark/php-api-with-balancer-starter-kit/blob/83e141e7d65cc0cac8d450dd9b212b786051133b/playbooks/deploy.yml#L42) and re-run the deployment as described above. 
+
 
 
