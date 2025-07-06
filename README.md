@@ -3,6 +3,7 @@ Starter kit for lightweight production setup of load balanced PHP APIs.
   - fully automated deployment of load balancer proxies and service APIs
   - dedicated Docker containers (multiple containers per host for service APIs - 3 by default)
   - the deployment is ran from a single Ansible host
+  - uses official base images: nginx for load balancers and php for the APIs 
 
 __Prerequisites:__
  - Ansible installed on host that runs the deployment
