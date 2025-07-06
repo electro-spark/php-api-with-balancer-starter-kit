@@ -3,7 +3,10 @@ Starter kit for lightweight production setup of load balanced PHP APIs.
   - fully automated deployment of load balancer proxies and service APIs
   - dedicated Docker containers (multiple containers per host for service APIs - 3 by default)
   - the deployment is ran from a single Ansible host
-  - uses official base images: nginx for load balancers and php for the APIs 
+  - uses official base images: nginx for load balancers and php for the APIs
+
+__Architecture__
+![Architecture](/architecture.png)
 
 __Prerequisites:__
  - Ansible installed on host that runs the deployment
@@ -34,7 +37,7 @@ chmod u+x *.sh
    
 7. Fill in your Balancer SSL [certificate](https://github.com/electro-spark/php-api-with-balancer-starter-kit/blob/main/balancer/ssl/cert.pem) and [certificate key](https://github.com/electro-spark/php-api-with-balancer-starter-kit/blob/main/balancer/ssl/cert-key.pem).
 
-If you don't have any certificates, for testing purposes, you can cd to the `ssl` directory and use mkcert to generate them for you. Do not use this in production!
+If you don't have any certificates, for testing purposes, you can cd to the `ssl` directory and use mkcert to generate them for you. (do not use in production)
 
 Usage example(for localhost):
 ```bash
